@@ -1,0 +1,29 @@
+name: WIF Managed Identity with federation
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+
+on:
+  push:
+    branches:
+    - main
+  workflow_dispatch:
+jobs:
+    job01:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: Azure/login@v1
+          with:
+            client-id: ${{ secrets.AZURE_CLIENT_ID_MI }}
+            tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+            subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        - name: Get Subscription Name
+          uses: azure/CLI@v1
+          with:
+            inlineScript: |
+                # Show current account information
+                info=$(az account show)
+                # Get Subscription Name
+                SUBSCRIPTION_NAME=$(echo $info | jq -r '.name')
+                echo "Subscription name is $SUBSCRIPTION_NAME"

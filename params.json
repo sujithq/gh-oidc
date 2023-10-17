@@ -1,0 +1,9 @@
+{
+  "name": "sujithq-gh-oidc-branch-federated-identity",
+  "issuer": "https://token.actions.githubusercontent.com",
+  "subject": "repo:sujithq/gh-oidc:ref:refs/heads/main",
+  "description": "Federation for GitHub sujithq|gh-oidc|branch",
+  "audiences": [
+    "api://AzureADTokenExchange"
+  ]
+}
